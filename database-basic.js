@@ -73,29 +73,29 @@ app.delete("/api/deleteuser", async (req, resp) => {
     }
 });
 
-// app.put("/api/updateUser", async (req, resp) => {
-//     const { firstName, lastName, age, city ,selfy,id} = req.body;
-//     console.log(req)
-//     const currentDate = new Date();
+app.put("/api/updateUser", async (req, resp) => {
+    const { firstName, lastName, age, city ,selfy,id} = req.body;
+    console.log(req)
+    const currentDate = new Date();
     
 
-//     try {
-//         const result = await sequelize.query(
-//             `UPDATE public.users SET "firstName" = :${firstName},"lastName" = :${lastName}, "city" = :${city}, "age" = :${age},"selfy" = :${selfy} ,"updatedAt" = :${currentDate} WHERE id = :${id}`
+    try {
+        const result = await sequelize.query(
+            `UPDATE public.users SET "firstName" = :${firstName},"lastName" = :${lastName}, "city" = :${city}, "age" = :${age},"selfy" = :${selfy} ,"updatedAt" = :${currentDate} WHERE id = :${id}`
 
-//         );
+        );
 
 
-//         if (result[1] === 0) {
-//             return resp.status(404).send({ message: "User not found" });
-//         }
+        if (result[1] === 0) {
+            return resp.status(404).send({ message: "User not found" });
+        }
 
-//         resp.status(200).send({ message: "User updated successfully" });
-//     } catch (error) {
-//         console.error('Error updating user:', error);
-//         resp.status(500).send({ message: "Error updating user", error: error.message });
-//     }
-// });
+        resp.status(200).send({ message: "User updated successfully" });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        resp.status(500).send({ message: "Error updating user", error: error.message });
+    }
+});
 
 
 app.get("/api/users/getuser", async (req, resp) => {
@@ -150,40 +150,6 @@ app.get("/api/users/getusers", async (req, resp) => {
     }
 });
 
-// app.post("/api/adduserss", async (req, resp) => {
-//     const data = req;
-//     console.log("req  >>>", data);
-
-//     if (!data) {
-//         return resp.status(400).send({ message: "data is required" });
-//     }
-
-//     try {
-//         const res = await sequelize.query(
-//             `INSERT INTO public.users("firstName", "lastName", "age", "city", "data","selfy", "createdAt", "updatedAt") 
-//              VALUES (:firstName, :lastName, :age, :city, :data, :selfy,:createdAt, :updatedAt)`,
-//             {
-//                 replacements: {
-//                     firstName: data.firstName,
-//                     lastName: data.lastName,
-//                     age: data.age,
-//                     city: data.city,
-//                     data: JSON.stringify(data.data), 
-//                     selfy:data.selfy,
-//                     createdAt: new Date(),
-//                     updatedAt: new Date()
-//                 }
-//             }
-//         );
-
-//         resp.status(201).send({ message: "User created successfully", user: { firstName: data.firstName, lastName: data.lastName, age: data.age, city: data.city,selfy:data.selfy } });
-//     } catch (error) {
-//         console.error('Error inserting data:', error);
-//         resp.status(500).send({ message: "An error occurred while creating the user." });
-//     }
-// });
-
-
 
 app.get("/api/users/getusers1", async (req, resp) => {
  const { name, firstName } = req.query;
@@ -203,22 +169,6 @@ app.get("/api/users/getusers1", async (req, resp) => {
         resp.status(500).send({ message: "Error fetching users", error: error.message });
     }
 });
-
-
-
-//     console.log("OOOOOPOPPPPP");
-
-//     // const createuser = user.build({ name: "parth" })
-//     // const runQueries = async () => {
-//     const res = await sequelize.query(`INSERT INTO public.users("user", "name", age,"createdAt","updatedAt") VALUES ('RRR111', 'SATISH1111', 29,'2024-09-20 08:23:00','2024-09-20 08:23:00')`);
-//     console.log('Users:', res.rows);
-//     // console.log('Inserted User:', newUser.rows[0]);
-//  }
-
-//     // createuser.save()
-//     //     resp.send(req.body)
-
-
 
 
 app.listen(PORT, () => {
